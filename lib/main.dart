@@ -74,11 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
     var innerPath = join(databasesPath, dbName);
     print(innerPath);
 
-    var dbFile = File(innerPath);
-
     Directory tempDir = await DownloadsPathProvider.downloadsDirectory;
     String tempPath = tempDir.path;
 
+    var dbFile = File(innerPath);
     var filePath = tempPath + '/$dbName';
     var dbFileBytes = dbFile.readAsBytesSync();
     var bytes = ByteData.view(dbFileBytes.buffer);
