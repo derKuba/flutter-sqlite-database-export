@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sqlite_database_export/Import.dart';
 
 import 'dart:async';
 import 'package:path/path.dart';
@@ -108,14 +109,34 @@ class _MyHomePageState extends State<MyHomePage> {
                   await Permission.storage.request();
                   return;
                 }
-
+                print(status);
                 File file = await _writeDBFileToDownloadFolder();
                 if (await file.length() > 0) {
                   print("success");
                 }
               },
-              child: Text('IMPORT'),
-            )
+              child: Text('Export'),
+            ),
+            Text("-----------------------"),
+            TextButton(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+              ),
+              onPressed: () async {
+                var status = await Permission.storage.status;
+                if (status.isDenied) {
+                  await Permission.storage.request();
+                  return;
+                }
+
+                Directory downloadDirectory =
+                    await DownloadsPathProvider.downloadsDirectory;
+                await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        Import(downloadDirectory: downloadDirectory)));
+              },
+              child: Text('Import'),
+            ),
           ],
         ),
       ),
