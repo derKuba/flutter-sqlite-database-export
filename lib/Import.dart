@@ -33,7 +33,7 @@ class _ImportState extends State<Import> {
         final buffer = bytes.buffer;
 
         var databasesPath = await getDatabasesPath();
-        var distPath = join(databasesPath, 'doggy__${DateTime.now()}');
+        var distPath = join(databasesPath, 'doggy__${DateTime.now()}.db');
 
         await File(distPath).writeAsBytes(buffer.asUint8List(
             dbFileBytes.offsetInBytes, dbFileBytes.lengthInBytes));

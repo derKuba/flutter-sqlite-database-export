@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sqlite_database_export/Import.dart';
+import 'package:intl/intl.dart';
 
 import 'dart:async';
 import 'package:path/path.dart';
@@ -79,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
     String tempPath = tempDir.path;
 
     var dbFile = File(innerPath);
-    var filePath = tempPath + '/$dbName';
+    var filePath = tempPath + '/doggy_db_${ DateFormat('yyyy-MM-dd Hms').format(DateTime.now())}.db';
     var dbFileBytes = dbFile.readAsBytesSync();
     var bytes = ByteData.view(dbFileBytes.buffer);
     final buffer = bytes.buffer;
